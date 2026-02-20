@@ -28,3 +28,12 @@ async def get_learners(
 # ===
 # PART B: POST endpoint
 # ===
+
+
+@router.post("/", response_model=Learner, status_code=201)
+async def post_learner(
+    body: LearnerCreate,
+    session: AsyncSession = Depends(get_session),
+):
+    """Create a new learner."""
+    return await create_learner(session, name=body.name, email=body.email)
